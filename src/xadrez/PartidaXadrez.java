@@ -1,6 +1,8 @@
 package xadrez;
 
 import tabuleiro.*;
+import xadrez.pecas.King;
+import xadrez.pecas.Rook;
 
 /**
  *
@@ -14,11 +16,11 @@ public class PartidaXadrez {
     //---------- CONSTRUTORES
     public PartidaXadrez() {
         this.tabuleiro = new Tabuleiro(8, 8);
+        iniciarPosicaoPecas();
     }
 
     //---------- GETs
     //---------- SETs
-    
     //---------- METODOS
     public PecaXadrez[][] getPecas() {
         PecaXadrez[][] mat = new PecaXadrez[tabuleiro.getLinhas()][tabuleiro.getColunas()];
@@ -30,4 +32,12 @@ public class PartidaXadrez {
         return mat;
     }
 
+    private void iniciarPosicaoPecas() {
+        this.tabuleiro.colocarPeca(new Rook(tabuleiro, Cor.WHITE), new Posicao(0, 1));
+        this.tabuleiro.colocarPeca(new Rook(tabuleiro, Cor.BLACK), new Posicao(7, 0));
+        this.tabuleiro.colocarPeca(new Rook(tabuleiro, Cor.BLACK), new Posicao(7, 0));
+
+        this.tabuleiro.colocarPeca(new King(tabuleiro, Cor.WHITE), new Posicao(4, 4));
+        this.tabuleiro.colocarPeca(new King(tabuleiro, Cor.BLACK), new Posicao(7, 4));
+    }
 }
