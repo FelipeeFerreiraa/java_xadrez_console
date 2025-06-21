@@ -19,8 +19,6 @@ public class PartidaXadrez {
         iniciarPosicaoPecas();
     }
 
-    //---------- GETs
-    //---------- SETs
     //---------- METODOS
     public PecaXadrez[][] getPecas() {
         PecaXadrez[][] mat = new PecaXadrez[tabuleiro.getLinhas()][tabuleiro.getColunas()];
@@ -32,12 +30,42 @@ public class PartidaXadrez {
         return mat;
     }
 
-    private void iniciarPosicaoPecas() {
-        this.tabuleiro.colocarPeca(new Rook(tabuleiro, Cor.WHITE), new Posicao(0, 1));
-        this.tabuleiro.colocarPeca(new Rook(tabuleiro, Cor.BLACK), new Posicao(7, 0));
-        this.tabuleiro.colocarPeca(new Rook(tabuleiro, Cor.BLACK), new Posicao(7, 0));
+    public PecaXadrez realizandoMovimentoXadrez(XadrezPosicao posicaoOrigem, XadrezPosicao posicaoDestino) {
 
-        this.tabuleiro.colocarPeca(new King(tabuleiro, Cor.WHITE), new Posicao(4, 4));
-        this.tabuleiro.colocarPeca(new King(tabuleiro, Cor.BLACK), new Posicao(7, 4));
+        Posicao origem = posicaoOrigem.convertePosicao();
+        Posicao destino = posicaoDestino.convertePosicao();
+        validarPosicaoOrigem(origem);
+        Peca pecaCapturada = executarMovimento(origem, destino);
+        return (PecaXadrez) pecaCapturada;
+    }
+
+    private Peca executarMovimento(Posicao origem, Posicao destino) {
+        Peca p = tabuleiro.removerPeca(origem);
+        Peca pecaCapturada = tabuleiro.removerPeca(destino);
+        tabuleiro.colocarPeca(p, destino);
+        return pecaCapturada;
+    }
+
+    private void validarPosicaoOrigem(Posicao posicao) {
+        if (!tabuleiro.haUmaPeca(posicao)) {
+            throw new XadrezException("-------- NÃO HÁ PEÇA NA POSIÇÃO DE ORIGEM --------");
+        }
+    }
+
+    private void colocandoNovaPeca(char coluna, int linha, PecaXadrez peca) {
+        tabuleiro.colocarPeca(peca, new XadrezPosicao(coluna, linha).convertePosicao());
+
+    }
+
+    private void iniciarPosicaoPecas() {
+
+        colocandoNovaPeca('a', 8, new Rook(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('h', 8, new Rook(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('e', 8, new King(tabuleiro, Cor.WHITE));
+
+        colocandoNovaPeca('a', 1, new Rook(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('h', 1, new Rook(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('d', 1, new King(tabuleiro, Cor.BLACK));
+
     }
 }

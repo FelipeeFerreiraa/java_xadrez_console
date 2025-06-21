@@ -4,12 +4,12 @@ package tabuleiro;
  *
  * @author felip
  */
-public class TabuleiroExceptions extends RuntimeException {
+public class TabuleiroException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
     //---------- CONSTRUTORES
-    public TabuleiroExceptions(String msg) {
+    public TabuleiroException(String msg) {
         super(msg);
     }
 
