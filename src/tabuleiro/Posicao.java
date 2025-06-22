@@ -38,4 +38,9 @@ public class Posicao {
     public String toString() {
         return linha + ", " + coluna;
     }
+
+    public void setValores(int linha, int coluna) {
+        this.linha = linha;
+        this.coluna = coluna;
+    }
 }

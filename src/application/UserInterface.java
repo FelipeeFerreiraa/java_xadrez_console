@@ -61,16 +61,30 @@ public class UserInterface {
         for (int x = 0; x < pecas.length; x++) {
             System.out.print((8 - x) + " ");
             for (int y = 0; y < pecas.length; y++) {
-                printPeca(pecas[x][y]);
+                printPeca(pecas[x][y], false);
             }
             System.out.println();
         }
         System.out.println("  a b c d e f g h");
     }
 
-    private static void printPeca(PecaXadrez peca) {
+    public static void printTabuleiro(PecaXadrez[][] pecas, boolean[][] possiveisMovimentos) {
+        for (int x = 0; x < pecas.length; x++) {
+            System.out.print((8 - x) + " ");
+            for (int y = 0; y < pecas.length; y++) {
+                printPeca(pecas[x][y], possiveisMovimentos[x][y]);
+            }
+            System.out.println();
+        }
+        System.out.println("  a b c d e f g h");
+    }
+
+    private static void printPeca(PecaXadrez peca, boolean background) {
+        if (background) {
+            System.out.print(ANSI_BLUE_BACKGROUND);
+        }
         if (peca == null) {
-            System.out.print("-");
+            System.out.print("-" + ANSI_RESET);
         } else {
             if (peca.getCor() == Cor.WHITE) {
                 System.out.print(ANSI_WHITE + peca + ANSI_RESET);
