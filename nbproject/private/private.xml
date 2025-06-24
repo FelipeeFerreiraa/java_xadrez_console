@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/TECNOLOGIA_DA_INFORMACAO/CURSOS/udemy__JAVA/projetos_codigos/xadrez_console/src/xadrez/PecaXadrez.java</file>
+            <file>file:/D:/TECNOLOGIA_DA_INFORMACAO/CURSOS/udemy__JAVA/projetos_codigos/xadrez_console/src/tabuleiro/Posicao.java</file>
+            <file>file:/D:/TECNOLOGIA_DA_INFORMACAO/CURSOS/udemy__JAVA/projetos_codigos/xadrez_console/src/application/UserInterface.java</file>
+            <file>file:/D:/TECNOLOGIA_DA_INFORMACAO/CURSOS/udemy__JAVA/projetos_codigos/xadrez_console/src/xadrez/PartidaXadrez.java</file>
+            <file>file:/D:/TECNOLOGIA_DA_INFORMACAO/CURSOS/udemy__JAVA/projetos_codigos/xadrez_console/src/application/Main.java</file>
+            <file>file:/D:/TECNOLOGIA_DA_INFORMACAO/CURSOS/udemy__JAVA/projetos_codigos/xadrez_console/src/xadrez/pecas/King.java</file>
+            <file>file:/D:/TECNOLOGIA_DA_INFORMACAO/CURSOS/udemy__JAVA/projetos_codigos/xadrez_console/src/tabuleiro/Peca.java</file>
+            <file>file:/D:/TECNOLOGIA_DA_INFORMACAO/CURSOS/udemy__JAVA/projetos_codigos/xadrez_console/src/xadrez/pecas/Rook.java</file>
+        </group>
     </open-files>
 </project-private>
