@@ -41,7 +41,6 @@ public class Main {
                 if (pecaCapturada != null) {
                     capturadas.add(pecaCapturada);
                 }
-
             } catch (XadrezException e) {
                 System.out.println(e.getMessage());
                 sc.nextLine();

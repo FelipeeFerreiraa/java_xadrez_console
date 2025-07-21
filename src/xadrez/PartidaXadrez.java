@@ -2,6 +2,7 @@ package xadrez;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import tabuleiro.*;
 import xadrez.pecas.King;
 import xadrez.pecas.Rook;
@@ -16,6 +17,7 @@ public class PartidaXadrez {
     private Tabuleiro tabuleiro;
     private int turno;
     private Cor JogadorAtual;
+    private boolean check;
 
     private List<Peca> pecasNoTabuleiro = new ArrayList<>();
     private List<Peca> pecasCapturadas = new ArrayList<>();
@@ -25,6 +27,7 @@ public class PartidaXadrez {
         this.tabuleiro = new Tabuleiro(8, 8);
         this.turno = 1;
         this.JogadorAtual = Cor.WHITE;
+        this.check = false;
         iniciarPosicaoPecas();
     }
 
@@ -35,6 +38,10 @@ public class PartidaXadrez {
 
     public Cor getJogadorAtual() {
         return JogadorAtual;
+    }
+
+    public boolean getCheck() {
+        return this.check;
     }
 
     //---------- METODOS
@@ -61,6 +68,14 @@ public class PartidaXadrez {
         validarPosicaoOrigem(origem);
         validarPosicaoDestino(origem, destino);
         Peca pecaCapturada = executarMovimento(origem, destino);
+
+        if (testandoCheck(JogadorAtual)) {
+            desFazerMovimento(origem, destino, pecaCapturada);
+            throw new XadrezException("--------------- VOCÊ NÃO PODE SE COLOCAR EM XEQUE! ---------------");
+        }
+
+        check = (testandoCheck(oponente(JogadorAtual))) ? true : false;
+
         proximoTurno();
         return (PecaXadrez) pecaCapturada;
     }
@@ -76,6 +91,17 @@ public class PartidaXadrez {
         }
 
         return pecaCapturada;
+    }
+
+    private void desFazerMovimento(Posicao origem, Posicao destino, Peca pecaCapturada) {
+        Peca p = tabuleiro.removerPeca(destino);
+        tabuleiro.colocarPeca(p, origem);
+
+        if (pecaCapturada != null) {
+            tabuleiro.colocarPeca(p, destino);
+            pecasCapturadas.remove(pecaCapturada);
+            pecasNoTabuleiro.add(pecaCapturada);
+        }
     }
 
     private void validarPosicaoDestino(Posicao origem, Posicao destino) {
@@ -105,18 +131,48 @@ public class PartidaXadrez {
 
     private void iniciarPosicaoPecas() {
 
-        colocandoNovaPeca('a', 8, new Rook(tabuleiro, Cor.WHITE));
-        colocandoNovaPeca('h', 8, new Rook(tabuleiro, Cor.WHITE));
-        colocandoNovaPeca('e', 8, new King(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('a', 8, new Rook(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('h', 8, new Rook(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('e', 8, new King(tabuleiro, Cor.BLACK));
 
-        colocandoNovaPeca('a', 1, new Rook(tabuleiro, Cor.BLACK));
-        colocandoNovaPeca('h', 1, new Rook(tabuleiro, Cor.BLACK));
-        colocandoNovaPeca('d', 1, new King(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('a', 1, new Rook(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('h', 1, new Rook(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('d', 1, new King(tabuleiro, Cor.WHITE));
 
     }
 
     private void proximoTurno() {
         this.turno++;
         this.JogadorAtual = (JogadorAtual == Cor.WHITE) ? Cor.BLACK : Cor.WHITE;
+    }
+
+    private Cor oponente(Cor cor) {
+        return (cor == Cor.WHITE) ? Cor.BLACK : Cor.WHITE;
+    }
+
+    private PecaXadrez localizandoRei(Cor cor) {
+        List<Peca> lista = pecasNoTabuleiro.stream().filter(x -> ((PecaXadrez) x).getCor() == cor).collect(Collectors.toList());
+        for (Peca p : lista) {
+            if (p instanceof King) {
+                return (PecaXadrez) p;
+            }
+        }
+
+        throw new IllegalStateException("---------- NÃO HÁ UM REI " + cor + " NO TABULEIRO -------------");
+
+    }
+
+    private boolean testandoCheck(Cor cor) {
+        Posicao posicaoRei = localizandoRei(cor).getPecxaXadrez().convertePosicao();
+        List<Peca> pecasDoOponente = pecasNoTabuleiro.stream().filter(x -> ((PecaXadrez) x).getCor() == oponente(cor)).collect(Collectors.toList());
+        for (Peca p : pecasDoOponente) {
+            boolean[][] mat = p.possiveisMovimentos();
+            if (mat[posicaoRei.getLinha()][posicaoRei.getColuna()]) {
+                return true;
+            }
+        }
+
+        return false;
+
     }
 }
