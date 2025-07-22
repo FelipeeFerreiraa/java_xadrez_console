@@ -24,7 +24,7 @@ public abstract class PecaXadrez extends Peca {
         return cor;
     }
 
-    public XadrezPosicao getPecxaXadrez() {
+    public XadrezPosicao getPecaXadrez() {
         return XadrezPosicao.invertePosicao(posicao);
     }
 

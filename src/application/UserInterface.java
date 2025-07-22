@@ -67,10 +67,17 @@ public class UserInterface {
         printPecaCapturada(capturadas);
         System.out.println();
         System.out.println("TURNO: " + partida.getTurno());
-        System.out.println("ESPERANDO JOGADOR: " + partida.getJogadorAtual());
-        if (partida.getCheck()) {
-            System.out.println("XEQUE!");
+
+        if (!partida.getCheckMate()) {
+            System.out.println("ESPERANDO JOGADOR: " + partida.getJogadorAtual());
+            if (partida.getCheck()) {
+                System.out.println("XEQUE!");
+            }
+        } else {
+            System.out.println("=====---- XEQUEMATE! ----=====");
+            System.out.println("=====---- VENCEDOR: " + partida.getJogadorAtual() + " ----=====");
         }
+
     }
 
     public static void printTabuleiro(PecaXadrez[][] pecas) {
@@ -116,10 +123,12 @@ public class UserInterface {
         List<PecaXadrez> white = capturadas.stream().filter(x -> x.getCor() == Cor.WHITE).collect(Collectors.toList());
         List<PecaXadrez> black = capturadas.stream().filter(x -> x.getCor() == Cor.BLACK).collect(Collectors.toList());
         System.out.println("-------- PEÇAS CAPTURADAS: ");
-        System.out.print(" WHITE --------");
         System.out.print(ANSI_WHITE);
+        System.out.print(" WHITE --------");
+        // System.out.print(ANSI_WHITE);
         System.out.println(Arrays.toString(white.toArray()));
         System.out.print(ANSI_RESET);
+        System.out.print(ANSI_YELLOW);
         System.out.print(" BLACK --------");
         System.out.print(ANSI_YELLOW);
         System.out.println(Arrays.toString(black.toArray()));
