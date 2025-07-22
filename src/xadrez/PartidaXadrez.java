@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import tabuleiro.*;
 import xadrez.pecas.King;
+import xadrez.pecas.Pawn;
 import xadrez.pecas.Rook;
 
 /**
@@ -92,7 +93,8 @@ public class PartidaXadrez {
     }
 
     private Peca executarMovimento(Posicao origem, Posicao destino) {
-        Peca p = tabuleiro.removerPeca(origem);
+        PecaXadrez p = (PecaXadrez) tabuleiro.removerPeca(origem);
+        p.aumentandoContMovimentos();
         Peca pecaCapturada = tabuleiro.removerPeca(destino);
         tabuleiro.colocarPeca(p, destino);
 
@@ -105,7 +107,8 @@ public class PartidaXadrez {
     }
 
     private void desFazerMovimento(Posicao origem, Posicao destino, Peca pecaCapturada) {
-        Peca p = tabuleiro.removerPeca(destino);
+        PecaXadrez p = (PecaXadrez) tabuleiro.removerPeca(destino);
+        p.diminuindoContMovimentos();
         tabuleiro.colocarPeca(p, origem);
 
         if (pecaCapturada != null) {
@@ -142,12 +145,31 @@ public class PartidaXadrez {
 
     private void iniciarPosicaoPecas() {
 
-        colocandoNovaPeca('b', 8, new Rook(tabuleiro, Cor.BLACK));
-        colocandoNovaPeca('a', 8, new King(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('a', 8, new Rook(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('h', 8, new Rook(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('e', 8, new King(tabuleiro, Cor.BLACK));
 
-        colocandoNovaPeca('d', 1, new Rook(tabuleiro, Cor.WHITE));
-        colocandoNovaPeca('h', 7, new Rook(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('a', 7, new Pawn(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('b', 7, new Pawn(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('c', 7, new Pawn(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('d', 7, new Pawn(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('e', 7, new Pawn(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('f', 7, new Pawn(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('g', 7, new Pawn(tabuleiro, Cor.BLACK));
+        colocandoNovaPeca('h', 7, new Pawn(tabuleiro, Cor.BLACK));
+
+        colocandoNovaPeca('a', 1, new Rook(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('h', 1, new Rook(tabuleiro, Cor.WHITE));
         colocandoNovaPeca('e', 1, new King(tabuleiro, Cor.WHITE));
+
+        colocandoNovaPeca('a', 2, new Pawn(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('b', 2, new Pawn(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('c', 2, new Pawn(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('d', 2, new Pawn(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('e', 2, new Pawn(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('f', 2, new Pawn(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('g', 2, new Pawn(tabuleiro, Cor.WHITE));
+        colocandoNovaPeca('h', 2, new Pawn(tabuleiro, Cor.WHITE));
 
     }
 
