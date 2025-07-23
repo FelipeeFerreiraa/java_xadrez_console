@@ -9,17 +9,17 @@ import xadrez.PecaXadrez;
  *
  * @author felip
  */
-public class Rook extends PecaXadrez { //-------- TORRE
+public class Bishop extends PecaXadrez {
+//---------- CONSTRUTORES
 
-    //---------- CONSTRUTORES
-    public Rook(Tabuleiro tabuleiro, Cor cor) {
+    public Bishop(Tabuleiro tabuleiro, Cor cor) {
         super(cor, tabuleiro);
     }
 
     //---------- METODOS
     @Override
     public String toString() {
-        return "R";
+        return "B";
     }
 
     @Override
@@ -28,41 +28,41 @@ public class Rook extends PecaXadrez { //-------- TORRE
 
         Posicao p = new Posicao(0, 0);
 
-        // ACIMA
-        p.setValores(posicao.getLinha() - 1, posicao.getColuna());
+        // NOROESTE
+        p.setValores(posicao.getLinha() - 1, posicao.getColuna() - 1);
         while (getTabuleiro().existePosicao(p) && !getTabuleiro().haUmaPeca(p)) {
             mat[p.getLinha()][p.getColuna()] = true;
-            p.setLinha(p.getLinha() - 1);
+            p.setValores(p.getLinha() - 1, p.getColuna() - 1);
         }
         if (getTabuleiro().existePosicao(p) && haPecaOponente(p)) {
             mat[p.getLinha()][p.getColuna()] = true;
         }
 
-        // ESQUERDA
-        p.setValores(posicao.getLinha(), posicao.getColuna() - 1);
+        // NORDESTE
+        p.setValores(posicao.getLinha() - 1, posicao.getColuna() + 1);
         while (getTabuleiro().existePosicao(p) && !getTabuleiro().haUmaPeca(p)) {
             mat[p.getLinha()][p.getColuna()] = true;
-            p.setColuna(p.getColuna() - 1);
+            p.setValores(p.getLinha() - 1, p.getColuna() + 1);
         }
         if (getTabuleiro().existePosicao(p) && haPecaOponente(p)) {
             mat[p.getLinha()][p.getColuna()] = true;
         }
 
-        // DIREITA
-        p.setValores(posicao.getLinha(), posicao.getColuna() + 1);
+        // SUDESTE
+        p.setValores(posicao.getLinha() + 1, posicao.getColuna() + 1);
         while (getTabuleiro().existePosicao(p) && !getTabuleiro().haUmaPeca(p)) {
             mat[p.getLinha()][p.getColuna()] = true;
-            p.setColuna(p.getColuna() + 1);
+            p.setValores(p.getLinha() + 1, p.getColuna() + 1);
         }
         if (getTabuleiro().existePosicao(p) && haPecaOponente(p)) {
             mat[p.getLinha()][p.getColuna()] = true;
         }
 
-        // ABAIXO
-        p.setValores(posicao.getLinha() + 1, posicao.getColuna());
+        // SUDOESTE
+        p.setValores(posicao.getLinha() + 1, posicao.getColuna() - 1);
         while (getTabuleiro().existePosicao(p) && !getTabuleiro().haUmaPeca(p)) {
             mat[p.getLinha()][p.getColuna()] = true;
-            p.setLinha(p.getLinha() + 1);
+            p.setValores(p.getLinha() + 1, p.getColuna() - 1);
         }
         if (getTabuleiro().existePosicao(p) && haPecaOponente(p)) {
             mat[p.getLinha()][p.getColuna()] = true;
@@ -70,6 +70,5 @@ public class Rook extends PecaXadrez { //-------- TORRE
 
         return mat;
     }
-
 
 }
