@@ -41,6 +41,13 @@ public class Main {
                 if (pecaCapturada != null) {
                     capturadas.add(pecaCapturada);
                 }
+
+                if (px1.getPromover() != null) {
+                    System.out.print("=====---- FORNEÇA UMA PEÇA PARA PROMOÇÃO (R,H,B,Q) ----======");
+                    String tipo = sc.nextLine();
+                    px1.colocandoPecaPromovida(tipo);
+                }
+
             } catch (XadrezException e) {
                 System.out.println(e.getMessage());
                 sc.nextLine();
