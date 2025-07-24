@@ -44,7 +44,11 @@ public class Main {
 
                 if (px1.getPromover() != null) {
                     System.out.print("=====---- FORNEÇA UMA PEÇA PARA PROMOÇÃO (R,H,B,Q) ----======");
-                    String tipo = sc.nextLine();
+                    String tipo = sc.nextLine().toUpperCase();
+                    while (!tipo.equals("B") && !tipo.equals("H") && !tipo.equals("R") && !tipo.equals("Q")) {
+                        System.out.println("# PEÇA INVÁLIDA # =====---- FORNEÇA UMA PEÇA PARA PROMOÇÃO (R,H,B,Q) ----======");
+                        tipo = sc.nextLine().toUpperCase();
+                    }
                     px1.colocandoPecaPromovida(tipo);
                 }
 
